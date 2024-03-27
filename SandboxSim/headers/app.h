@@ -9,4 +9,6 @@ class App {
 	GLFWwindow* window;
 public:
 	App(unsigned int width = 800, unsigned int height = 800, const char* title = "OpenGL");
+	~App();
+	void gameLoop();
 };
