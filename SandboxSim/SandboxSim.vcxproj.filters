@@ -24,6 +24,12 @@
     <ClCompile Include="src\app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLFW\glfw3native.h">
@@ -41,8 +47,18 @@
     <ClInclude Include="headers\app.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="headers\renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glfw3.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\shaders\fragment.glsl" />
+    <None Include="src\shaders\vertex.glsl" />
   </ItemGroup>
 </Project>

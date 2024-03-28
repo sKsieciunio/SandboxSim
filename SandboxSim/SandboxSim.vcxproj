@@ -133,9 +133,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\app.cpp" />
     <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\renderer.cpp" />
+    <ClCompile Include="src\shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\app.h" />
+    <ClInclude Include="headers\renderer.h" />
+    <ClInclude Include="headers\shader.h" />
     <ClInclude Include="include\glad\glad.h" />
     <ClInclude Include="include\GLFW\glfw3.h" />
     <ClInclude Include="include\GLFW\glfw3native.h" />
@@ -143,6 +147,10 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glfw3.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\shaders\fragment.glsl" />
+    <None Include="src\shaders\vertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
