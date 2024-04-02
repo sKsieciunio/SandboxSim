@@ -107,3 +107,7 @@ unsigned int compileShader(const char* source, unsigned int type) {
 
 	return shader;
 }
+
+Shader::~Shader() {
+	remove();
+}
