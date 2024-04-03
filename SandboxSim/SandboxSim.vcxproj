@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\board.h" />
+    <ClInclude Include="headers\grain.h" />
     <ClInclude Include="headers\renderer.h" />
     <ClInclude Include="headers\shader.h" />
     <ClInclude Include="include\glad\glad.h" />

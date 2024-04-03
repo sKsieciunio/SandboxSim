@@ -6,8 +6,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "../headers/shader.h"
-#include "../headers/renderer.h"
+#include "headers/shader.h"
+#include "headers/renderer.h"
+//#include "headers/board.h"
+//#include "headers/grain.h"
 
 void framebufferSizeCallback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
