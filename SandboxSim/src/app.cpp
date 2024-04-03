@@ -48,10 +48,6 @@ void App::gameLoop() {
 		glfwSwapBuffers(window);
 		glfwPollEvents();		
 	}
-
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
-	shader.remove();
 }
 
 App::App(unsigned int width, unsigned int height, const char* title) :
