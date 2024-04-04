@@ -1,13 +1,19 @@
 #pragma once
 
 class Grain;
+class Shader;
 
 class Board {
+
+public:
 	Grain*** board;
 	int boardSize;
-public:
+
 	Board(int size);
 	~Board();
 
-	void render();
+	void render(Shader& shader);
+	void calculatePhysics();
+	void addGrain(int x, int y);
+	//Grain* operator()(int x, int y);
 };

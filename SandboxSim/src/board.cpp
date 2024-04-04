@@ -27,6 +27,23 @@ Board::~Board() {
 	delete[] board;
 }
 
-void Board::render() {
+void Board::render(Shader& shader) {
+	for (int i = 0; i < boardSize; ++i) {
+		for (int j = 0; j < boardSize; ++j) {
+			if (board[i][j] != nullptr) {
+				board[i][j]->render(shader);
+			}
+		}
+	}
+}
 
+void Board::calculatePhysics() {
+
+}
+
+void Board::addGrain(int x, int y) {
+	if (board[x][y] == nullptr) {
+		board[x][y] = new (std::nothrow) Grain{ x, y };
+		if (board[x][y] == nullptr) return;
+	}
 }
