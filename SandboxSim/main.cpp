@@ -19,6 +19,8 @@ const unsigned int SCREEN_WIDTH{ 800 };
 const unsigned int SCREEN_HEIGHT{ 800 };
 const float scale{ 0.005f };
 const int gridSize{ static_cast<int>(1 / scale) };
+const float physicsRate{ 30.0f }; // Physics engine refresh rate
+const float physicsTime{ 1 / physicsRate };
 
 const float recVertices[] = {
 	 1.0f,  1.0f,
@@ -30,6 +32,8 @@ const float recVertices[] = {
 };
 
 Board board{ gridSize };
+float deltaTime{ 0.0f };
+float lastFrame{ 0.0f };
 
 int main(void) {
 	glfwInit();
@@ -64,11 +68,20 @@ int main(void) {
 	board.addGrain(100, 100);
 
 	while (!glfwWindowShouldClose(window)) {
+		float currentFrame{ static_cast<float>(glfwGetTime()) };
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+		std::cout << "FPS: " << 1 / deltaTime << std::endl;
+
 		processInput(window);
 
 		Renderer::clear();
 
-		board.calculatePhysics();
+		static float timeWhenToCalPhy = 0.0f;
+		if (glfwGetTime() > timeWhenToCalPhy) {
+			board.calculatePhysics();
+			timeWhenToCalPhy += physicsTime;
+		}
 
 		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
 			double xpos{}, ypos{};
@@ -82,6 +95,12 @@ int main(void) {
 		}
 
 		board.render(shader);
+
+		/* BENCHMARK XDDDD
+		for (int i = 0; i < board.boardSize; ++i) {
+			board.addGrain(i, i % 2);
+		}
+		*/
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
