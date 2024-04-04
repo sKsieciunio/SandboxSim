@@ -61,8 +61,7 @@ int main(void) {
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	board.addGrain(4, 5);
-	board.addGrain(4, 7);
+	board.addGrain(100, 100);
 
 	while (!glfwWindowShouldClose(window)) {
 		processInput(window);
@@ -74,7 +73,7 @@ int main(void) {
 		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
 			double xpos{}, ypos{};
 			glfwGetCursorPos(window, &xpos, &ypos);
-			if (xpos >= 0 && xpos <= SCREEN_WIDTH && ypos >= 0 && ypos <= SCREEN_HEIGHT) {
+			if (xpos >= 0 && xpos < SCREEN_WIDTH && ypos >= 0 && ypos < SCREEN_HEIGHT) {
 				int x{ static_cast<int>(xpos / (SCREEN_WIDTH / gridSize)) };
 				int y{ static_cast<int>(ypos / (SCREEN_HEIGHT / gridSize)) };
 				//std::cout << x << ',' << y << std::endl;
