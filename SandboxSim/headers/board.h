@@ -13,6 +13,7 @@ public:
 	~Board();
 
 	void render(Shader& shader);
+	void renderNew(Shader& shader);
 	void calculatePhysics();
 	void addGrain(int x, int y);
 };

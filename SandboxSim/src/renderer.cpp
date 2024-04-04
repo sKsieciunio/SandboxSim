@@ -5,6 +5,12 @@
 #include "shader.h"
 #include "../headers/renderer.h"
 
+void Renderer::renderBoard(Shader& shader, float* indices, int size) {
+	shader.use();
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * size, indices, GL_STATIC_DRAW);
+	glDrawArrays(GL_TRIANGLES, 0, size);
+}
+
 void Renderer::renderRecGrid(Shader& shader, int posX, int posY) {
 	shader.use();
 	glm::mat4 model = glm::identity<glm::mat4>();

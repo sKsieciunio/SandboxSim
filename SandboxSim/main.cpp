@@ -99,14 +99,14 @@ int main(void) {
 		}
 
 		double time2{ glfwGetTime() };
-		board.render(shader); // RENDERING HERE
+		board.renderNew(shader); // RENDERING HERE
 		std::cout << "\t\tRender Time: " << (glfwGetTime() - time2) * 100 << " ms" << std::endl;
 
 		/* BENCHMARK XDDDD
+		*/
 		for (int i = 0; i < board.boardSize; ++i) {
 			board.addGrain(i, i % 2);
 		}
-		*/
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

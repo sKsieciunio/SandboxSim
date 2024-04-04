@@ -4,9 +4,10 @@
 class Shader;
 
 class Grain {
+public:
 	int posX;
 	int posY;
-public:
+
 	Grain(int posX, int posY) : posX{ posX }, posY{ posY } {}
 
 	void render(Shader& shader) {
