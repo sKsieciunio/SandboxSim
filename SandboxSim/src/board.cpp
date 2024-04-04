@@ -1,6 +1,7 @@
 #include "../headers/board.h"
 #include "../headers/grain.h"
 #include <new>
+#include <cstdlib>
 
 Board::Board(int size) 
 	: board{}, boardSize{ size } {
@@ -81,6 +82,23 @@ void Board::calculatePhysics() {
 				board[x][y + 1] = board[x][y];
 				board[x][y] = nullptr;
 				board[x][y + 1]->updatePos(x, y + 1);
+			}
+			else if (board[x + 1][y + 1] == nullptr && board[x - 1][y + 1] == nullptr) {
+				int choice = (rand() % 2 == 0) ? 1 : -1;
+				board[x + choice][y + 1] = board[x][y];
+				board[x][y] = nullptr;
+				board[x + choice][y + 1]->updatePos(x + choice, y + 1);
+			}
+			else if (board[x + 1][y + 1] == nullptr) {
+				board[x + 1][y + 1] = board[x][y];
+				board[x][y] = nullptr;
+				board[x + 1][y + 1]->updatePos(x + 1, y + 1);
+			}
+			else if (board[x - 1][y + 1] == nullptr) {
+				board[x - 1][y + 1] = board[x][y];
+				board[x][y] = nullptr;
+				board[x - 1][y + 1]->updatePos(x - 1, y + 1);
+
 			}
 		}
 	}

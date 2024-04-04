@@ -2,6 +2,8 @@
 #include <iomanip>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <ctime>
+#include <cstdlib>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -67,6 +69,7 @@ int main(void) {
 	glEnableVertexAttribArray(0);
 
 	board.addGrain(100, 100);
+	srand(time(nullptr));
 
 	while (!glfwWindowShouldClose(window)) {
 		float currentFrame{ static_cast<float>(glfwGetTime()) };
@@ -93,7 +96,6 @@ int main(void) {
 			if (xpos >= 0 && xpos < SCREEN_WIDTH && ypos >= 0 && ypos < SCREEN_HEIGHT) {
 				int x{ static_cast<int>(xpos / (SCREEN_WIDTH / gridSize)) };
 				int y{ static_cast<int>(ypos / (SCREEN_HEIGHT / gridSize)) };
-				//std::cout << x << ',' << y << std::endl;
 				board.addGrain(x, y);
 			}
 		}
@@ -101,12 +103,6 @@ int main(void) {
 		double time2{ glfwGetTime() };
 		board.renderNew(shader); // RENDERING HERE
 		std::cout << "\t\tRender Time: " << (glfwGetTime() - time2) * 100 << " ms" << std::endl;
-
-		/* BENCHMARK XDDDD
-		*/
-		for (int i = 0; i < board.boardSize; ++i) {
-			board.addGrain(i, i % 2);
-		}
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
