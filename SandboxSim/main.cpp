@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -19,7 +20,7 @@ const unsigned int SCREEN_WIDTH{ 800 };
 const unsigned int SCREEN_HEIGHT{ 800 };
 const float scale{ 0.005f };
 const int gridSize{ static_cast<int>(1 / scale) };
-const float physicsRate{ 30.0f }; // Physics engine refresh rate
+const float physicsRate{ 60.0f }; // Physics engine refresh rate [Hz]
 const float physicsTime{ 1 / physicsRate };
 
 const float recVertices[] = {
@@ -71,17 +72,20 @@ int main(void) {
 		float currentFrame{ static_cast<float>(glfwGetTime()) };
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-		std::cout << "FPS: " << 1 / deltaTime << std::endl;
+		std::cout << "FPS: " << std::setfill(' ') << std::setw(6) << std::fixed << std::setprecision(2) << 1 / deltaTime << " / " << deltaTime * 100 << " ms";
 
 		processInput(window);
 
 		Renderer::clear();
 
+		double time1{ glfwGetTime() };
+		// PHYSICS HERE
 		static float timeWhenToCalPhy = 0.0f;
 		if (glfwGetTime() > timeWhenToCalPhy) {
 			board.calculatePhysics();
 			timeWhenToCalPhy += physicsTime;
 		}
+		std::cout << "\t\tPhysics Enigne Time: " << (glfwGetTime() - time1) * 100 << " ms";
 
 		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
 			double xpos{}, ypos{};
@@ -94,7 +98,9 @@ int main(void) {
 			}
 		}
 
-		board.render(shader);
+		double time2{ glfwGetTime() };
+		board.render(shader); // RENDERING HERE
+		std::cout << "\t\tRender Time: " << (glfwGetTime() - time2) * 100 << " ms" << std::endl;
 
 		/* BENCHMARK XDDDD
 		for (int i = 0; i < board.boardSize; ++i) {

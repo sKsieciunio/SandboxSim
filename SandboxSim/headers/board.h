@@ -15,5 +15,4 @@ public:
 	void render(Shader& shader);
 	void calculatePhysics();
 	void addGrain(int x, int y);
-	//Grain* operator()(int x, int y);
 };
