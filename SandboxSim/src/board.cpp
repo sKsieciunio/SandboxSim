@@ -37,6 +37,7 @@ static float mappingFunc(int value) {
 }
 
 void Board::renderNew(Shader& shader) {
+	// per grain 6 verts, per vert 2 coords and 3 colors 6*(2+3)
 	float* indices = new (std::nothrow) float[boardSize * boardSize * 12] {};
 	if (indices == nullptr) return;
 
@@ -56,8 +57,8 @@ void Board::renderNew(Shader& shader) {
 			indices[arrayOffset + 7 ] = -mappingFunc(Ypos + 1);
 			indices[arrayOffset + 8 ] =  mappingFunc(Xpos + 1);
 			indices[arrayOffset + 9 ] = -mappingFunc(Ypos + 1);
-			indices[arrayOffset + 11] = -mappingFunc(Ypos);
 			indices[arrayOffset + 10] =  mappingFunc(Xpos + 1);
+			indices[arrayOffset + 11] = -mappingFunc(Ypos);
 		}
 	}
 
@@ -83,18 +84,18 @@ void Board::calculatePhysics() {
 				board[x][y] = nullptr;
 				board[x][y + 1]->updatePos(x, y + 1);
 			}
-			else if (board[x + 1][y + 1] == nullptr && board[x - 1][y + 1] == nullptr) {
+			else if ((x != 0 && x != boardSize - 1) ? (board[x + 1][y + 1] == nullptr && board[x - 1][y + 1] == nullptr) : false) {
 				int choice = (rand() % 2 == 0) ? 1 : -1;
 				board[x + choice][y + 1] = board[x][y];
 				board[x][y] = nullptr;
 				board[x + choice][y + 1]->updatePos(x + choice, y + 1);
 			}
-			else if (board[x + 1][y + 1] == nullptr) {
+			else if ((x != boardSize - 1) ? (board[x + 1][y + 1] == nullptr) : false) {
 				board[x + 1][y + 1] = board[x][y];
 				board[x][y] = nullptr;
 				board[x + 1][y + 1]->updatePos(x + 1, y + 1);
 			}
-			else if (board[x - 1][y + 1] == nullptr) {
+			else if ((x != 0) ? (board[x - 1][y + 1] == nullptr) : false) {
 				board[x - 1][y + 1] = board[x][y];
 				board[x][y] = nullptr;
 				board[x - 1][y + 1]->updatePos(x - 1, y + 1);
@@ -104,9 +105,9 @@ void Board::calculatePhysics() {
 	}
 }
 
-void Board::addGrain(int x, int y) {
+void Board::addGrain(int x, int y, Grain::Type type) {
 	if (board[x][y] == nullptr) {
-		board[x][y] = new (std::nothrow) Grain{ x, y };
+		board[x][y] = new (std::nothrow) Grain{ x, y, type };
 		if (board[x][y] == nullptr) return;
 	}
 }

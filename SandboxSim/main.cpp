@@ -12,7 +12,6 @@
 #include "headers/shader.h"
 #include "headers/renderer.h"
 #include "headers/board.h"
-#include "headers/grain.h"
 
 void framebufferSizeCallback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -25,18 +24,10 @@ const int gridSize{ static_cast<int>(1 / scale) };
 const float physicsRate{ 60.0f }; // Physics engine refresh rate [Hz]
 const float physicsTime{ 1 / physicsRate };
 
-const float recVertices[] = {
-	 1.0f,  1.0f,
-	-1.0f,  1.0f,
-	-1.0f, -1.0f,
-	-1.0f, -1.0f,
-	 1.0f, -1.0f,
-	 1.0f,  1.0f
-};
-
 Board board{ gridSize };
 float deltaTime{ 0.0f };
 float lastFrame{ 0.0f };
+Grain::Type currentGrainType = Grain::Type::SAND;
 
 int main(void) {
 	glfwInit();
@@ -68,7 +59,7 @@ int main(void) {
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	board.addGrain(100, 100);
+	board.addGrain(100, 100, currentGrainType);
 	srand(time(nullptr));
 
 	while (!glfwWindowShouldClose(window)) {
@@ -96,13 +87,19 @@ int main(void) {
 			if (xpos >= 0 && xpos < SCREEN_WIDTH && ypos >= 0 && ypos < SCREEN_HEIGHT) {
 				int x{ static_cast<int>(xpos / (SCREEN_WIDTH / gridSize)) };
 				int y{ static_cast<int>(ypos / (SCREEN_HEIGHT / gridSize)) };
-				board.addGrain(x, y);
+				board.addGrain(x, y, currentGrainType);
 			}
 		}
 
 		double time2{ glfwGetTime() };
 		board.renderNew(shader); // RENDERING HERE
 		std::cout << "\t\tRender Time: " << (glfwGetTime() - time2) * 100 << " ms" << std::endl;
+
+		/*
+		for (int i = 0; i < board.boardSize; ++i) {
+			board.addGrain(i, i%2 + 1);
+		}
+		*/
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

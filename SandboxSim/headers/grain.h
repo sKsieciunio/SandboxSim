@@ -8,7 +8,10 @@ public:
 	int posX;
 	int posY;
 
-	Grain(int posX, int posY) : posX{ posX }, posY{ posY } {}
+	enum class Type {SAND, WATER};
+	Type type;
+
+	Grain(int posX, int posY, Type type) : posX{ posX }, posY{ posY }, type{ type } {}
 
 	void render(Shader& shader) {
 		Renderer::renderRecGrid(shader, posX, posY);

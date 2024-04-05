@@ -1,6 +1,6 @@
 #pragma once
+#include "grain.h"
 
-class Grain;
 class Shader;
 
 class Board {
@@ -15,5 +15,5 @@ public:
 	void render(Shader& shader);
 	void renderNew(Shader& shader);
 	void calculatePhysics();
-	void addGrain(int x, int y);
+	void addGrain(int x, int y, Grain::Type type);
 };
