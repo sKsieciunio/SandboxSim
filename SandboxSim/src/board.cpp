@@ -38,31 +38,44 @@ static float mappingFunc(int value) {
 
 void Board::renderNew(Shader& shader) {
 	// per grain 6 verts, per vert 2 coords and 3 colors 6*(2+3)
-	float* indices = new (std::nothrow) float[boardSize * boardSize * 12] {};
+	float* indices = new (std::nothrow) float[boardSize * boardSize * 30] {};
 	if (indices == nullptr) return;
 
 	for (int y = 0; y < boardSize; ++y) {
 		for (int x = 0; x < boardSize; ++x) {
 			if (board[x][y] == nullptr) continue;
-			int arrayOffset = y * boardSize * 12 + x * 12;
+			int arrayOffset = y * boardSize * 30 + x * 30;
 			int Xpos = board[x][y]->posX;
 			int Ypos = board[x][y]->posY;
+
 			indices[arrayOffset + 0 ] =  mappingFunc(Xpos + 1);
 			indices[arrayOffset + 1 ] = -mappingFunc(Ypos);
-			indices[arrayOffset + 2 ] =  mappingFunc(Xpos);
-			indices[arrayOffset + 3 ] = -mappingFunc(Ypos);
-			indices[arrayOffset + 4 ] =  mappingFunc(Xpos);
-			indices[arrayOffset + 5 ] = -mappingFunc(Ypos + 1);
-			indices[arrayOffset + 6 ] =  mappingFunc(Xpos);
-			indices[arrayOffset + 7 ] = -mappingFunc(Ypos + 1);
-			indices[arrayOffset + 8 ] =  mappingFunc(Xpos + 1);
-			indices[arrayOffset + 9 ] = -mappingFunc(Ypos + 1);
-			indices[arrayOffset + 10] =  mappingFunc(Xpos + 1);
-			indices[arrayOffset + 11] = -mappingFunc(Ypos);
+
+			indices[arrayOffset + 5 ] =  mappingFunc(Xpos);
+			indices[arrayOffset + 6 ] = -mappingFunc(Ypos);
+
+			indices[arrayOffset + 10] =  mappingFunc(Xpos);
+			indices[arrayOffset + 11] = -mappingFunc(Ypos + 1);
+
+			indices[arrayOffset + 15] =  mappingFunc(Xpos);
+			indices[arrayOffset + 16] = -mappingFunc(Ypos + 1);
+
+			indices[arrayOffset + 20] =  mappingFunc(Xpos + 1);
+			indices[arrayOffset + 21] = -mappingFunc(Ypos + 1);
+
+			indices[arrayOffset + 25] =  mappingFunc(Xpos + 1);
+			indices[arrayOffset + 26] = -mappingFunc(Ypos);
+
+			for (int i = 0; i < 6; ++i) {
+				//TODO
+				indices[arrayOffset + i * 5 + 2 + 0] = 1.0f;
+				indices[arrayOffset + i * 5 + 2 + 1] = 0.77f;
+				indices[arrayOffset + i * 5 + 2 + 2] = 0.34f;
+			}
 		}
 	}
 
-	Renderer::renderBoard(shader, indices, boardSize * boardSize * 12);
+	Renderer::renderBoard(shader, indices, boardSize * boardSize * 30);
 
 	delete[] indices;
 }
