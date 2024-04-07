@@ -134,12 +134,14 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\board.cpp" />
+    <ClCompile Include="src\functions.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\renderer.cpp" />
     <ClCompile Include="src\shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\board.h" />
+    <ClInclude Include="headers\functions.h" />
     <ClInclude Include="headers\grain.h" />
     <ClInclude Include="headers\renderer.h" />
     <ClInclude Include="headers\shader.h" />

@@ -11,5 +11,6 @@ namespace Renderer
 void clear();
 void renderRecGrid(Shader& shader, int posX, int posY);
 void renderBoard(Shader& shader, float* indices, int size);
+void renderIndices(Shader& shader, float* indices, int size);
 
 }

@@ -14,6 +14,7 @@ public:
 
 	void render(Shader& shader);
 	void renderNew(Shader& shader);
+	void render2(Shader& shader);
 	void calculatePhysics();
 	void addGrain(int x, int y, Grain::Type type);
 };

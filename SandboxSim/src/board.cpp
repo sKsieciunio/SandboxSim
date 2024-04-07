@@ -1,5 +1,6 @@
 #include "../headers/board.h"
 #include "../headers/grain.h"
+#include "../headers/functions.h"
 #include <new>
 #include <cstdlib>
 
@@ -28,12 +29,11 @@ Board::~Board() {
 	delete[] board;
 }
 
-// Code written by chatgpt xd
-static float mappingFunc(int value) {
-	float minIn{ 0.0f }, maxIn{ 200.0f }, minOut{ -1.0f }, maxOut{ 1.0f };
-	float fraction = static_cast<float>(value - minIn) / (maxIn - minIn);
-	float mappedValue = minOut + fraction * (maxOut - minOut);
-	return mappedValue;
+void Board::render2(Shader& shader) {
+	for (int i = 0; i < boardSize; ++i)
+		for (int j = 0; j < boardSize; ++j)
+			if (board[i][j] != nullptr)
+				board[i][j]->render2(shader);
 }
 
 void Board::renderNew(Shader& shader) {

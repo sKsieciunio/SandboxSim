@@ -93,7 +93,7 @@ int main(void) {
 		}
 
 		double time2{ glfwGetTime() };
-		board.renderNew(shader); // RENDERING HERE
+		board.render2(shader); // RENDERING HERE
 		std::cout << "\t\tRender Time: " << (glfwGetTime() - time2) * 100 << " ms" << std::endl;
 
 		/*
